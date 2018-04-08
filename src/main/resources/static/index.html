@@ -1,0 +1,77 @@
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Infosys Demo</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--  <link rel="stylesheet" href="tuition.css"> -->
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script>
+// loadDoc function uses html dom to retireve user inputted email and password
+//then creates a Json objecct to be sent on a jquery ajax http request
+  function loadDoc(){
+	  var user = document.getElementById("email").value;
+	  var pass = document.getElementById("pwd").value;
+	  //puts username and password into a single object called input
+	  var input = {};
+	  input["username"]=user;
+	  input["password"]=pass;
+	  //Jquery ajax request
+	  $.ajax({
+		  contentType: "application/json; charset=utf-8",
+		  // input in response body to be turned into an Auth object
+		    data: 
+		            JSON.stringify(input),
+		         
+		    dataType: 'json',
+		    //if login is successful user is redirected to welcome page
+		    success: function(data){
+		    	//user data is recorder in console to show successful user response object
+		        console.log(data);
+		        window.location.href ="http://localhost:9191/welcome";
+		    },
+		    //logs error if login request is unsuccessful or credentials are innaccurate
+		    error: function(){
+		        console.log("Device control failed");
+		    },
+		    async: false,    //Cross-domain requests and dataType: "jsonp" requests do not support synchronous operation
+		    cache: false,    //This will force requested pages not to be cached by the browser, improvwed security         
+		    processData:false, //To avoid making query String instead of JSON
+		    type: 'POST',
+		    url: '/login'
+	  });
+	  
+  }
+  </script>
+</head>
+<body>
+<!--  login html page that triggers ajax request on click of submit -->
+<div class="form-horizontal" name="myform" onsubmit="loadDoc()">
+<div class="form-group">
+      <label class="control-label col-sm-2" for="email">Username:</label>
+      <div class="col-sm-10">
+       <input type="text" class="form-control" id="email" placeholder="Enter username" name="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <div class="col-sm-10">          
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox" name="remember"> Remember me</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" onclick="loadDoc()" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
