@@ -3,6 +3,7 @@ package com.infosys.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.infosys.beans.Account;
 import com.infosys.beans.Auth;
@@ -10,6 +11,15 @@ import com.infosys.util.HibernateUtil;
 
 //Accountdao uses hibernate to access and search database
 public class AccountDao {
+	// Getaccount searches table for instance of a user with a specific username
+	public void saveAccount(Account account) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(account);
+		tx.commit();
+		session.close();
+		
+	}
 	// Getaccount searches table for instance of a user with a specific username
 	public Auth getAccount(String username) {
 		//hibernate util is used to create a session

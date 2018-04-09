@@ -42,11 +42,45 @@
 	  });
 	  
   }
+  //function for adding a user
+  function register(){
+	  var user = document.getElementById("userreg").value;
+	  var pass = document.getElementById("passreg").value;
+	  var fname = document.getElementById("fname").value;
+	  var lname = document.getElementById("lname").value;
+	  var money = document.getElementById("money").value;
+	  var input ={};
+	  input["username"] = user;
+	  input["password"] = pass;
+	  input["firstname"] = fname;
+	  input["lastname"] = lname;
+	  input["money"] = money;
+	  $.ajax({
+		  contentType: "application/json; charset = UTF-8",
+		  data: JSON.stringify(input),
+		  datatype: "json",
+		  success: function(data){
+			  console.log("successful");
+		  },
+		  error: function(){
+			  console.log("error");
+		  },
+		  async: false,
+		  cache: false,
+		  processData: false,
+		  type: 'POST',
+		  url: '/register'
+		  
+	  });
+  }
   </script>
 </head>
 <body>
 <!--  login html page that triggers ajax request on click of submit -->
+<h1>Login</h1>
 <div class="form-horizontal" name="myform" onsubmit="loadDoc()">
+
+
 <div class="form-group">
       <label class="control-label col-sm-2" for="email">Username:</label>
       <div class="col-sm-10">
@@ -61,17 +95,50 @@
     </div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label><input type="checkbox" name="remember"> Remember me</label>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
         <button type="button" onclick="loadDoc()" class="btn btn-default">Submit</button>
       </div>
     </div>
   </div>
+  <!--  unfinished registration
+  <h1>Register</h1>
+	<div class="form-horizontal" name="myform" onsubmit="register()">
+<div class="form-group">
+      <label class="control-label col-sm-2" for="email">Username:</label>
+      <div class="col-sm-10">
+       <input type="text" class="form-control" id="userreg" placeholder="Enter username" name="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <div class="col-sm-10">          
+      <input type="password" class="form-control" id="passreg" placeholder="Enter password" name="pwd">
+      </div>
+    </div>
+	<div class="form-group">
+      <label class="control-label col-sm-2" for="email">First NAme:</label>
+      <div class="col-sm-10">
+       <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Last Name:</label>
+      <div class="col-sm-10">          
+      <input type="password" class="form-control" id="lname" placeholder="Last Name" name="pwd">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Money:</label>
+      <div class="col-sm-10">
+       <input type="range" class="form-control" id="money" placeholder="Enter username" name="email">
+      </div>
+    </div>
 
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="button" onclick="register()" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </div>
+  -->
 </body>
 </html>
